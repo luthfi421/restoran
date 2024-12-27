@@ -29,7 +29,6 @@ public class AplikasiRestoran extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-
         inisialisasiMenu();
         inisialisasiMeja();
         inisialisasiStaf();
@@ -63,7 +62,6 @@ public class AplikasiRestoran extends JFrame {
 
         add(navbar, BorderLayout.NORTH);
 
-        // Area untuk tampilan
         areaTeks = new JTextArea(20, 50);
         areaTeks.setEditable(false);
         areaTeks.setBackground(new Color(43, 43, 43));
@@ -71,7 +69,6 @@ public class AplikasiRestoran extends JFrame {
         areaTeks.setFont(new Font("Arial", Font.BOLD, 16));
         JScrollPane scrollPane = new JScrollPane(areaTeks);
 
-        // Input fields
         inputPesananField = new JTextField(30);
         inputMejaField = new JTextField(15);
         inputNamaField = new JTextField(30);
@@ -83,7 +80,6 @@ public class AplikasiRestoran extends JFrame {
         tombolPesan.setForeground(Color.WHITE);
         tombolPesan.addActionListener(e -> ambilPesanan());
 
-        // Panel untuk input
         JPanel panelInput = new JPanel();
         panelInput.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -109,13 +105,12 @@ public class AplikasiRestoran extends JFrame {
         gbc.gridy = 8;
         panelInput.add(tombolPesan, gbc);
 
-        // Menambahkan panel input dan area teks ke frame
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(panelInput, BorderLayout.WEST);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         add(mainPanel, BorderLayout.CENTER);
-        tampilkanMenu(); // Tampilkan menu awal
+        tampilkanMenu();
     }
 
     private JButton createNavButton(String text) {
@@ -134,9 +129,9 @@ public class AplikasiRestoran extends JFrame {
     }
 
     private void inisialisasiMeja() {
-        daftarMeja.add(new Meja(1)); // Meja 1
-        daftarMeja.add(new Meja(2)); // Meja 2
-        daftarMeja.add(new Meja(3)); // Meja 3
+        daftarMeja.add(new Meja(1));
+        daftarMeja.add(new Meja(2));
+        daftarMeja.add(new Meja(3));
     }
 
     private void inisialisasiStaf() {
@@ -263,13 +258,12 @@ public class AplikasiRestoran extends JFrame {
         if (ringkasanPesanan.length() > 0) {
             Pesanan pesanan = new Pesanan("Pesanan" + nomorAntrian, idMeja, namaPembeli, teleponPembeli);
             daftarPesanan.add(pesanan);
-            meja.setStatus("tidak tersedia"); // Ubah status meja
+            meja.setStatus("tidak tersedia");
             areaTeks.append("Pesanan untuk Meja " + idMeja + ":\n" + ringkasanPesanan);
             areaTeks.append("Total Harga: " + totalHarga + " IDR\n\n");
             nomorAntrian++;
         }
 
-        // Reset input fields
         inputPesananField.setText("");
         inputMejaField.setText("");
         inputNamaField.setText("");
@@ -298,10 +292,8 @@ public class AplikasiRestoran extends JFrame {
                 statusOptions[0]);
 
         if (statusBaru != null) {
-            // Set status pesanan
             pesanan.setStatus(statusBaru);
 
-            // Jika status baru adalah SELESAI, ubah status meja menjadi tersedia
             if (statusBaru.equals("SELESAI")) {
                 Meja meja = daftarMeja.stream()
                         .filter(m -> m.getId().equals(pesanan.getIdMeja()))
